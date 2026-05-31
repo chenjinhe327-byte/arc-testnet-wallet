@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARC 钱包 | HelloArcToken</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      background: #0F172A;
+      color: #fff;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .card {
+      background: linear-gradient(135deg, #1E293B, #0F172A);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      border: 1px solid #334155;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #25F398;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      color: #94A3B8;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .balance {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      margin: 10px 0;
+    }
+    .token-symbol {
+      color: #25F398;
+      font-size: 18px;
+    }
+    .address-box {
+      background: #1E293B;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 13px;
+      word-break: break-all;
+      margin: 10px 0;
+      border: 1px solid #475569;
+    }
+    .label {
+      font-size: 12px;
+      color: #94A3B8;
+      margin-bottom: 6px;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: 0.2s;
+    }
+    .btn-primary {
+      background: #25F398;
+      color: #000;
+    }
+    .btn-primary:hover {
+      background: #1ae089;
+    }
+    .btn-secondary {
+      background: #334155;
+      color: #fff;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    input:focus {
+      border-color: #25F398;
+    }
+    #account {
+      color: #25F398;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="title">ARC 可视化钱包</div>
+      <div class="subtitle">连接 MetaMask 进行链上操作</div>
+      <button class="btn btn-primary" onclick="connectMetaMask()">🔌 连接 MetaMask</button>
+      <div id="account"></div>
+    </div>
+
+    <div class="card">
+      <div class="title">代币余额</div>
+      <div class="balance" id="balance">--</div>
+      <div class="token-symbol">ARC</div>
+    </div>
+
+    <div class="card">
+      <div class="title">链上转账</div>
+      <div class="label">接收地址</div>
+      <input id="to" placeholder="0x...">
+
+      <div class="label">转账数量 (ARC)</div>
+      <input id="amount" placeholder="1.0">
+
+      <button class="btn btn-primary" onclick="sendToken()">✅ 发送到链上</button>
+    </div>
+  </div>
+
+  <!-- Ethers.js 用于链上交互 -->
+  <script src="https://cdn.ethers.org/lib/ethers-6.7.0.umd.min.js"></script>
+
+  <script>
+    // 你的代币信息
+    const CONTRACT_ADDRESS = "0x5916804cfd7db5ce08861732969f1861304d216a";
+    const DECIMALS = 18;
+
+    let provider, signer, address;
+
+    // ABI 只保留需要的功能
+    const abi = [
+      "function balanceOf(address) view returns (uint256)",
+      "function transfer(address to, uint256 amount) returns (bool)"
+    ];
+
+    // 连接 MetaMask
+    async function connectMetaMask() {
+      if (!window.ethereum) {
+        alert("请安装 MetaMask 钱包！");
+        return;
+      }
+
+      provider = new ethers.BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      signer = await provider.getSigner();
+      address = await signer.getAddress();
+
+      document.getElementById("account").innerText = "已连接：" + address;
+      getBalance();
+    }
+
+    // 查询余额
+    async function getBalance() {
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
+      const bal = await contract.balanceOf(address);
+      const formatted = ethers.formatUnits(bal, DECIMALS);
+      document.getElementById("balance").innerText = formatted;
+    }
+
+    // 链上转账
+    async function sendToken() {
+      const to = document.getElementById("to").value;
+      const amount = document.getElementById("amount").value;
+
+      if (!to || !amount) {
+        alert("请填写完整信息！");
+        return;
+      }
+
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+      const value = ethers.parseUnits(amount, DECIMALS);
+
+      try {
+        const tx = await contract.transfer(to, value);
+        await tx.wait();
+        alert("✅ 转账成功！交易哈希：" + tx.hash);
+        getBalance();
+      } catch (e) {
+        alert("❌ 转账失败：" + e.message);
+      }
+    }
+  </script>
+</body>
+</html>
