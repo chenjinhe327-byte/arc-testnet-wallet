@@ -3,85 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARC 钱包 | HelloArcToken</title>
+  <title>ARC Wallet | HelloArcToken Testnet</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
     }
     body {
-      background: #0F172A;
-      color: #fff;
+      background: linear-gradient(160deg, #0B1120 0%, #0F172A 100%);
+      color: #E2E8F0;
       min-height: 100vh;
-      padding: 30px 20px;
+      padding: 32px 20px;
     }
     .container {
       max-width: 480px;
       margin: 0 auto;
     }
-    .card {
-      background: linear-gradient(135deg, #1E293B, #0F172A);
-      border-radius: 20px;
-      padding: 28px;
+    .global-warning {
+      background: #991B1B;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      color: white;
+    }
+    .back-home {
+      display: block;
+      text-align: center;
+      color: #25F398;
+      text-decoration: none;
       margin-bottom: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      font-size: 14px;
+    }
+    .back-home:hover {
+      text-decoration: underline;
+    }
+    .card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
       border: 1px solid #334155;
+      transition: 0.2s ease;
+    }
+    .card:hover {
+      border-color: #25F39866;
     }
     .title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       color: #25F398;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .subtitle {
       color: #94A3B8;
       font-size: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+    }
+    .balance-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 12px 0;
     }
     .balance {
-      font-size: 36px;
+      font-size: 40px;
       font-weight: 700;
       color: #fff;
-      margin: 10px 0;
     }
     .token-symbol {
       color: #25F398;
-      font-size: 18px;
-    }
-    .address-box {
-      background: #1E293B;
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-family: monospace;
-      font-size: 13px;
-      word-break: break-all;
-      margin: 10px 0;
-      border: 1px solid #475569;
+      font-size: 20px;
     }
     .label {
-      font-size: 12px;
+      font-size: 13px;
       color: #94A3B8;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .btn {
       width: 100%;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 15px;
+      border-radius: 14px;
       border: none;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 8px;
-      transition: 0.2s;
+      margin-top: 10px;
+      transition: 0.2s ease;
     }
     .btn-primary {
       background: #25F398;
-      color: #000;
+      color: #020617;
     }
     .btn-primary:hover {
-      background: #1ae089;
+      background: #1AE089;
     }
     .btn-secondary {
       background: #334155;
@@ -89,14 +110,15 @@
     }
     input {
       width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      background: #1E293B;
+      padding: 15px;
+      border-radius: 14px;
+      background: #0F172A;
       border: 1px solid #475569;
       color: #fff;
       font-size: 15px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       outline: none;
+      transition: border 0.2s;
     }
     input:focus {
       border-color: #25F398;
@@ -104,71 +126,74 @@
     #account {
       color: #25F398;
       font-size: 14px;
-      margin: 10px 0;
+      margin: 12px 0;
+      word-break: break-all;
+      font-family: monospace;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
+    <div class="global-warning">
+      ⚠️ Testnet Demo Only — No Real Funds Supported
+    </div>
+    <a href="./index.html" class="back-home">← Back to Official Homepage</a>
+
     <div class="card">
-      <div class="title">ARC 可视化钱包</div>
-      <div class="subtitle">连接 MetaMask 进行链上操作</div>
-      <button class="btn btn-primary" onclick="connectMetaMask()">🔌 连接 MetaMask</button>
+      <div class="title">ARC Visual Wallet</div>
+      <div class="subtitle">Connect MetaMask to interact with Arc Testnet</div>
+      <button class="btn btn-primary" onclick="connectMetaMask()">🔌 Connect MetaMask Wallet</button>
       <div id="account"></div>
     </div>
 
     <div class="card">
-      <div class="title">代币余额</div>
-      <div class="balance" id="balance">--</div>
-      <div class="token-symbol">ARC</div>
+      <div class="title">Token Balance</div>
+      <div class="balance-wrap">
+        <div class="balance" id="balance">--</div>
+        <div class="token-symbol">ARC</div>
+      </div>
+      <div style="color:#94A3B8;font-size:13px;">HelloArcToken ERC-20</div>
     </div>
 
     <div class="card">
-      <div class="title">链上转账</div>
-      <div class="label">接收地址</div>
-      <input id="to" placeholder="0x...">
+      <div class="title">Transfer Token</div>
+      <div class="subtitle">Send ARC to any wallet address on Arc Testnet</div>
 
-      <div class="label">转账数量 (ARC)</div>
-      <input id="amount" placeholder="1.0">
+      <div class="label">Recipient Wallet Address</div>
+      <input id="to" placeholder="0xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
 
-      <button class="btn btn-primary" onclick="sendToken()">✅ 发送到链上</button>
+      <div class="label">Amount (ARC)</div>
+      <input id="amount" placeholder="e.g. 10.5">
+
+      <button class="btn btn-primary" onclick="sendToken()">✅ Submit On-Chain Transfer</button>
     </div>
   </div>
 
-  <!-- Ethers.js 用于链上交互 -->
+  <!-- Ethers.js CDN -->
   <script src="https://cdn.ethers.org/lib/ethers-6.7.0.umd.min.js"></script>
-
   <script>
-    // 你的代币信息
     const CONTRACT_ADDRESS = "0x5916804cfd7db5ce08861732969f1861304d216a";
     const DECIMALS = 18;
-
     let provider, signer, address;
-
-    // ABI 只保留需要的功能
     const abi = [
       "function balanceOf(address) view returns (uint256)",
       "function transfer(address to, uint256 amount) returns (bool)"
     ];
 
-    // 连接 MetaMask
     async function connectMetaMask() {
       if (!window.ethereum) {
-        alert("请安装 MetaMask 钱包！");
+        alert("MetaMask wallet extension is required, please install first.");
         return;
       }
-
       provider = new ethers.BrowserProvider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       signer = await provider.getSigner();
       address = await signer.getAddress();
-
-      document.getElementById("account").innerText = "已连接：" + address;
+      document.getElementById("account").innerText = "Connected Wallet: " + address;
       getBalance();
     }
 
-    // 查询余额
     async function getBalance() {
       const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, provider);
       const bal = await contract.balanceOf(address);
@@ -176,26 +201,23 @@
       document.getElementById("balance").innerText = formatted;
     }
 
-    // 链上转账
     async function sendToken() {
-      const to = document.getElementById("to").value;
-      const amount = document.getElementById("amount").value;
-
+      const to = document.getElementById("to").value.trim();
+      const amount = document.getElementById("amount").value.trim();
       if (!to || !amount) {
-        alert("请填写完整信息！");
+        alert("Please fill recipient address and transfer amount.");
         return;
       }
-
       const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
       const value = ethers.parseUnits(amount, DECIMALS);
-
       try {
         const tx = await contract.transfer(to, value);
+        alert(`Transaction submitted!\nHash: ${tx.hash}\nCheck status on ArcScan.`);
         await tx.wait();
-        alert("✅ 转账成功！交易哈希：" + tx.hash);
+        alert("Transfer confirmed on Arc Testnet!");
         getBalance();
       } catch (e) {
-        alert("❌ 转账失败：" + e.message);
+        alert(`Transfer failed: ${e.message}`);
       }
     }
   </script>

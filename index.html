@@ -3,50 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HelloArcToken (ARC) | 官方网站</title>
+    <title>HelloArcToken (ARC) | Official Website</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family: system-ui, sans-serif; }
-        body { background: #0B1120; color: white; text-align: center; padding: 50px 20px; }
-        .container { max-width: 700px; margin: 0 auto; }
-        h1 { font-size: 42px; margin-bottom: 10px; color: #25F398; }
-        .tag { font-size: 20px; color: #aaa; margin-bottom: 40px; }
-        .card { background: #121A2C; padding: 30px; border-radius: 20px; margin-bottom: 20px; text-align:left; }
-        .card h3 { color: #25F398; margin-bottom:10px; }
-        .card p { color:#ccc; line-height:1.6; }
-        .label { color:#777; font-size:14px; margin-top:10px; }
-        .addr { color:#25F398; word-break:break-all; background:#0B1120; padding:10px; border-radius:10px; margin:10px 0; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        body { 
+            background: linear-gradient(160deg, #0B1120 0%, #0F172A 100%); 
+            color: #E2E8F0; 
+            text-align: center; 
+            padding: 60px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 720px; margin: 0 auto; }
+        .warning-bar {
+            background: #991B1B;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        h1 { font-size: 44px; margin-bottom: 12px; color: #25F398; letter-spacing: 0.5px; }
+        .tag { font-size: 20px; color: #94A3B8; margin-bottom: 48px; line-height: 1.5; }
+        .card { 
+            background: rgba(30, 41, 59, 0.6); 
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            padding: 32px; 
+            border-radius: 20px; 
+            margin-bottom: 24px; 
+            text-align:left;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #25F39866;
+        }
+        .card h3 { color: #25F398; margin-bottom: 14px; font-size: 18px; }
+        .card p { color:#CBD5E1; line-height:1.7; font-size: 15px; margin:6px 0; }
+        .label { color:#64748B; font-size:13px; margin-top:12px; }
+        .addr { 
+            color:#25F398; 
+            word-break:break-all; 
+            background:#0B1120; 
+            padding:14px; 
+            border-radius:12px; 
+            margin:12px 0;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #334155;
+        }
         .btn {
-            background:#25F398; color:#000; padding:14px 30px; border:none; border-radius:12px;
-            font-size:16px; font-weight:bold; cursor:pointer; margin-top:20px; text-decoration:none; display:inline-block;
+            background:#25F398; 
+            color:#020617; 
+            padding:16px 36px; 
+            border:none; 
+            border-radius:14px;
+            font-size:16px; 
+            font-weight:600; 
+            cursor:pointer; 
+            margin-top:20px; 
+            text-decoration:none; 
+            display:inline-block;
+            transition: background 0.2s ease;
+        }
+        .btn:hover {
+            background: #1AE089;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #25F398;
+            color: #25F398;
+            margin-left: 12px;
+        }
+        .btn-outline:hover {
+            background: #25F3981A;
+        }
+        .action-group {
+            margin-top: 32px;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="warning-bar">
+            ⚠️ 本项目仅运行于 Arc Testnet 测试网，请勿存入任何真实资产，仅作技术演示使用
+        </div>
         <h1>HelloArcToken (ARC)</h1>
-        <p class="tag">ARC Testnet 官方代币 | 总量 2100 万枚 | 已永久锁定增发</p>
+        <p class="tag">ARC Testnet Native Token | Fixed Total Supply 21,000,000 | Mint Permanently Revoked</p>
 
         <div class="card">
-            <h3>💰 代币信息</h3>
-            <p>名称：HelloArcToken</p>
-            <p>符号：ARC</p>
-            <p>小数位数：18</p>
-            <p>总发行量：21,000,000</p>
-            <p>增发权限：已永久关闭 🔒</p>
+            <h3>💰 Token Info</h3>
+            <p>Name: HelloArcToken</p>
+            <p>Symbol: ARC</p>
+            <p>Decimals: 18</p>
+            <p>Total Supply: 21,000,000 ARC</p>
+            <p>Mint Authority: Permanently Revoked 🔒</p>
         </div>
 
         <div class="card">
-            <h3>📦 合约地址</h3>
+            <h3>📦 Contract Address</h3>
             <div class="addr">0x5916804cfd7db5ce08861732969f1861304d216a</div>
-            <a href="https://testnet.arcscan.app/address/0x5916804cfd7db5ce08861732969f1861304d216a" class="btn" target="_blank">在区块浏览器查看</a>
+            <a href="https://testnet.arcscan.app/address/0x5916804cfd7db5ce08861732969f1861304d216a" class="btn" target="_blank">View on ArcScan</a>
         </div>
 
         <div class="card">
-            <h3>✅ 安全特性</h3>
-            <p>✅ 总量固定 2100 万</p>
-            <p>✅ 无法增发</p>
-            <p>✅ 合约已验证</p>
-            <p>✅ 去中心化、不可篡改</p>
+            <h3>✅ Security Features</h3>
+            <p>✅ Fixed maximum supply 21 million</p>
+            <p>✅ No additional mint possible</p>
+            <p>✅ Fully verified contract source code</p>
+            <p>✅ Immutable & decentralized ERC-20 standard</p>
+        </div>
+
+        <div class="action-group">
+            <a href="./wallet.html" class="btn">Open ARC Wallet</a>
+            <a href="https://testnet.arcscan.app/" target="_blank" class="btn btn-outline">Block Explorer</a>
         </div>
     </div>
 </body>
